@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chrysanty Gwyneth's Website</title>
+  
+  <style>
+    /* Reset and Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      --color-blue-100: #e0f2fe;
+      --color-blue-600: #2563eb;
+      --color-blue-700: #1d4ed8;
+      --color-gray-50: #f9fafb;
+      --color-gray-100: #f3f4f6;
+      --color-gray-200: #e5e7eb;
+      --color-gray-400: #9ca3af;
+      --color-gray-500: #6b7280;
+      --color-gray-600: #4b5563;
+      --color-gray-900: #111827;
+      --color-white: #ffffff;
+      --background: #ffffff;
+      --foreground: #111827;
+      --card: #ffffff;
+      --card-foreground: #111827;
+      --primary: #030213;
+      --primary-foreground: #ffffff;
+      --secondary: #f3f4f6;
+      --secondary-foreground: #030213;
+      --muted: #ececf0;
+      --muted-foreground: #717182;
+      --accent: #e9ebef;
+      --accent-foreground: #030213;
+      --border: rgba(0, 0, 0, 0.1);
+      --input-background: #f3f3f5;
+      --ring: #6b7280;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      color: var(--foreground);
+      background-color: var(--background);
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.875rem; }
+    h4 { font-size: 1.5rem; }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Utility Classes */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .flex { display: flex; }
+    .grid { display: grid; }
+    .hidden { display: none; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-6 { gap: 1.5rem; }
+    .gap-8 { gap: 2rem; }
+    .gap-12 { gap: 3rem; }
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .rounded-md { border-radius: 0.375rem; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .rounded-2xl { border-radius: 1rem; }
+    .border { border: 1px solid var(--border); }
+    .bg-white { background-color: var(--color-white); }
+    .relative { position: relative; }
+    .fixed { position: fixed; }
+    .w-full { width: 100%; }
+    .min-h-screen { min-height: 100vh; }
+    .overflow-hidden { overflow: hidden; }
+    .transition-all { transition: all 0.3s ease; }
+    .transition-colors { transition: color 0.2s ease, background-color 0.2s ease; }
+    .transition-transform { transition: transform 0.3s ease; }
+    .transition-shadow { transition: box-shadow 0.3s ease; }
+    .cursor-pointer { cursor: pointer; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    header .container {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 500;
+      color: var(--color-gray-900);
+      cursor: pointer;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    nav button {
+      color: var(--color-gray-600);
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      transition: color 0.2s;
+    }
+
+    nav button:hover {
+      color: var(--color-gray-900);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      padding: 0.5rem;
+      color: var(--color-gray-600);
+    }
+
+    .mobile-nav {
+      display: none;
+      padding-top: 1rem;
+      padding-bottom: 0.5rem;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .mobile-nav.active {
+      display: flex;
+    }
+
+    .mobile-nav button {
+      text-align: left;
+      padding: 0.5rem 0;
+      color: var(--color-gray-600);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    .btn-primary {
+      background-color: var(--color-blue-600);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-blue-700);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background-color: var(--background);
+      color: var(--foreground);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--accent);
+    }
+
+    .btn-lg {
+      height: 2.5rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+    .btn-ghost {
+      background: transparent;
+    }
+
+    .btn-ghost:hover {
+      background-color: var(--accent);
+    }
+
+    /* Card Styles */
+    .card {
+      background-color: var(--card);
+      color: var(--card-foreground);
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .card-hover:hover {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Badge Styles */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.375rem;
+      border: 1px solid transparent;
+      padding: 0.125rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge-secondary {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    /* Input Styles */
+    .input, .textarea {
+      width: 100%;
+      border-radius: 0.375rem;
+      border: 1px solid var(--border);
+      background-color: var(--input-background);
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .input:focus, .textarea:focus {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+    }
+
+    .textarea {
+      min-height: 128px;
+      resize: vertical;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 600;
+      color: var(--color-gray-900);
+      margin-bottom: 1rem;
+    }
+
+    .section-description {
+      color: var(--color-gray-600);
+      margin-bottom: 3rem;
+      max-width: 42rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Hero Section */
+    #hero {
+      background: linear-gradient(to bottom right, var(--color-gray-50), var(--color-gray-100));
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-text h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--color-gray-900);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text h1 .highlight {
+      color: var(--color-blue-600);
+    }
+
+    .hero-text p {
+      font-size: 1.125rem;
+      color: var(--color-gray-600);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .hero-image {
+      max-width: 400px;
+      margin: 0 auto;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .scroll-arrow {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--color-gray-400);
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateX(-50%) translateY(-25%);
+      }
+      50% {
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* About Section */
+    #about {
+      background-color: white;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .about-text p {
+      color: var(--color-gray-600);
+      line-height: 1.75;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image img {
+      aspect-ratio: 1;
+      border-radius: 1rem;
+      object-fit: cover;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Skills Section */
+    #skills {
+      background: linear-gradient(to bottom right, var(--color-gray-50), var(--color-gray-100));
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .skill-card {
+      padding: 1.5rem;
+    }
+
+    .skill-icon {
+      display: inline-flex;
+      padding: 0.75rem;
+      background-color: var(--color-blue-100);
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--color-blue-600);
+    }
+
+    .skill-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card p {
+      color: var(--color-gray-600);
+    }
+
+    /* Portfolio Section */
+    #portfolio {
+      background-color: white;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .project-card {
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .project-image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-content p {
+      color: var(--color-gray-600);
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-blue-600);
+      transition: color 0.2s;
+    }
+
+    .project-link:hover {
+      color: var(--color-blue-700);
+    }
+
+    .project-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Contact Section */
+    #contact {
+      background-color: var(--color-gray-50);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 64rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .contact-card {
+      padding: 2rem;
+    }
+
+    .contact-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-gray-900);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-info-card {
+      padding: 1.5rem;
+    }
+
+    .contact-info-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--color-gray-900);
+      margin-bottom: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--color-gray-600);
+      transition: color 0.2s;
+    }
+
+    .contact-item:hover {
+      color: var(--color-blue-600);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      padding: 0.75rem;
+      background-color: var(--color-gray-100);
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      background-color: var(--color-blue-100);
+      color: var(--color-blue-600);
+    }
+
+    .social-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--color-gray-900);
+      color: white;
+      padding: 2rem 0;
+    }
+
+    footer p {
+      text-align: center;
+      color: var(--color-gray-400);
+    }
+
+    /* Responsive Typography */
+    @media (min-width: 768px) {
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.875rem; }
+      h3 { font-size: 1.5rem; }
+      
+      .section-title {
+        font-size: 1.875rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo" onclick="scrollToSection('hero')">
+          <span>Chrysanty Gwyneth Winata Ang</span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav>
+          <button onclick="scrollToSection('about')">About</button>
+          <button onclick="scrollToSection('skills')">Skills</button>
+          <button onclick="scrollToSection('portfolio')">Portfolio</button>
+          <button onclick="scrollToSection('contact')">Contact</button>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <svg id="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg id="close-icon" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav" id="mobile-nav">
+        <button onclick="scrollToSection('about')">About</button>
+        <button onclick="scrollToSection('skills')">Skills</button>
+        <button onclick="scrollToSection('portfolio')">Portfolio</button>
+        <button onclick="scrollToSection('contact')">Contact</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen relative flex items-center justify-center">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>
+              Hi, I'm <span class="highlight">Gwyneth</span>!
+            </h1>
+            <p>
+              I blend analytical thinking with creativity.
+              From data analysis to content creation, I'm passionate about making complex ideas accessible. 
+              Currently at Gojek, constantly learning, and always up for a board game session!
+            </p>
+            <div class="hero-buttons">
+              <button class="btn btn-primary btn-lg" onclick="scrollToSection('portfolio')">
+                View My Work
+              </button>
+              <button class="btn btn-outline btn-lg" onclick="scrollToSection('contact')">
+                Get in Touch
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <img src="Gwyneth.jpg" alt="Chrysanty Gwyneth Winata Ang" width="500" height="800" />
+          </div>
+        </div>
+      </div>
+
+      <button class="scroll-arrow" onclick="scrollToSection('about')">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen flex items-center">
+      <div class="container">
+        <div style="max-width: 72rem; margin: 0 auto;">
+          <h2 class="section-title text-center">About Me</h2>
+          
+          <div class="about-content">
+            <div class="about-text">
+              <p>
+                I'm driven by curiosity and a love for learning. 
+                Studying Mathematics at Bandung Institute of Technology taught me to blend logic with creativity, 
+                shaping how I approach problems and explore new ideas.
+                I thrive on continuous improvement and find genuine joy in both understanding 
+                how things work and sharing that knowledge with others.
+              </p>
+              
+              <p>
+                Currently, I work as an Area Sales Support Supervisor at Gojek, 
+                where I bridge data analysis with strategic decision-making. 
+                Beyond my core role, I've developed a passion 
+                for marketing and content creation in tech and gaming. I love combining analytical 
+                thinking with storytelling, and I'm exploring ways to make complex ideas accessible 
+                through teaching and content.
+              </p>
+              
+              <p>
+                Outside work, you'll find me playing board games, listening to K-pop, 
+                or enjoying a book. Time with family keeps me grounded. 
+                For me, life is about balancing learning with doing, and staying curious about what's next.
+              </p>
+            </div>
+            
+            <div class="about-image">
+              <img src="Gwyneth_Graduation.jpg" alt="Chrysanty Gwyneth Winata Ang" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title text-center">Skills & Expertise</h2>
+        <p class="section-description text-center">
+          The skills and technologies I use to turn ideas into real projects.
+        </p>
+
+        <div class="skills-grid">
+          <div class="card skill-card card-hover">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+            </div>
+            <h3>Data Analysis</h3>
+            <p>Python, MATLAB, R, Google Sheets, Microsoft Excel</p>
+          </div>
+
+          <div class="card skill-card card-hover">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <h3>Project Management</h3>
+            <p>Jira, Trello, Notion, Miro</p>
+          </div>
+
+          <div class="card skill-card card-hover">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+            </div>
+            <h3>Performance Marketing</h3>
+            <p>Google Ads, TikTok Ads, ASA, Meta Ads</p>
+          </div>
+
+          <div class="card skill-card card-hover">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3>CRM</h3>
+            <p>Salesforce</p>
+          </div>
+
+          <div class="card skill-card card-hover">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+              </svg>
+            </div>
+            <h3>Content Creation</h3>
+            <p>CapCut, Canva, Audacity</p>
+          </div>
+
+          <div class="card skill-card card-hover">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 8l6 6"></path>
+                <path d="M4 14l6-6 2-3"></path>
+                <path d="M2 5h12"></path>
+                <path d="M7 2h1"></path>
+                <path d="m22 22-5-10-5 10"></path>
+                <path d="M14 18h6"></path>
+              </svg>
+            </div>
+            <h3>Languages</h3>
+            <p>English, Indonesia, Chinese</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+      <div class="container">
+        <h2 class="section-title text-center">Portfolio</h2>
+        <p class="section-description text-center">
+          A curated selection of projects highlighting creative works,<br />
+          analytical research, and educational initiatives.
+        </p>
+
+        <div class="portfolio-grid">
+          <!-- Project 1 -->
+          <div class="card project-card">
+            <div class="project-image">
+              <img src="Gwyneth_Website.png" alt="Creative Exploration" />
+            </div>
+            <div class="project-content">
+              <h3>Creative Exploration</h3>
+              <p>
+                Passionate about the creative field from a young age, 
+                she has been actively involved in voice acting, singing, cosplay, and various creative projects. 
+                She also values education, which reflects her dedication to sharing knowledge and inspiring others.
+                <br /><br />
+                Support her creative journey here! Currently open for commissions listed below. 
+                Please reach out to Gwyneth for further information.
+              </p>
+              
+              <div class="project-tags">
+                <span class="badge badge-secondary">Voice Acting</span>
+                <span class="badge badge-secondary">Singing</span>
+                <span class="badge badge-secondary">Tutoring</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://trakteer.id/gwyneth" target="_blank" class="project-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  <span>Click Here</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 (with password) -->
+          <div class="card project-card">
+            <div class="project-image">
+              <img src="P4G.jpg" alt="Application of Game Theory" />
+            </div>
+            <div class="project-content">
+              <h3>Application of Game Theory in Time Management and Interpersonal Relationship using Persona 4 Golden Video Game</h3>
+              <p>
+                University final project using game theory to explore choices in the 
+                role-playing game Persona 4 Golden. 
+                This project models these processes and examines 
+                factors influencing player decisions.
+              </p>
+              
+              <div class="project-tags">
+                <span class="badge badge-secondary">Game Theory</span>
+                <span class="badge badge-secondary">Python</span>
+                <span class="badge badge-secondary">Time Management</span>
+                <span class="badge badge-secondary">Persona 4 Golden</span>
+                <span class="badge badge-secondary">Indonesia</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://drive.google.com/file/d/1XubTfsIlNFbkOKtTowQl2fOJ3p1txA1u/view?usp=sharing" target="_blank" class="project-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  <span>Click Here</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="card project-card">
+            <div class="project-image">
+              <img src="Medium.png" alt="Medium" />
+            </div>
+            <div class="project-content">
+              <h3>Medium</h3>
+              <p>
+                Platform for sharing articles and personal insights, marking the beginning of her professional writing journey.
+              </p>
+              
+              <div class="project-tags">
+                <span class="badge badge-secondary">Writing</span>
+                <span class="badge badge-secondary">Storytelling</span>
+                <span class="badge badge-secondary">Self Development</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://medium.com/@chrysanty" target="_blank" class="project-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  <span>Click Here</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="card project-card">
+            <div class="project-image">
+              <img src="UKJ_ITB.png" alt="Birthday Song for Miku" />
+            </div>
+            <div class="project-content">
+              <h3>[Cover] Birthday Song for Miku (Mitchie M)</h3>
+              <p>
+                A collaborative music project covering the popular Miku song by Mitchie M.
+                <br /><br />
+                Credits: ITB Japanese Club (UKJ ITB)
+              </p>
+              
+              <div class="project-tags">
+                <span class="badge badge-secondary">Music</span>
+                <span class="badge badge-secondary">J-Pop</span>
+                <span class="badge badge-secondary">Vocaloid</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://www.youtube.com/watch?v=6NIq-XRo-38" target="_blank" class="project-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  <span>Click Here</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title text-center">Get in Touch</h2>
+        <p class="section-description text-center">
+          Have a project in mind or want to collaborate? Feel free to reach out!
+        </p>
+
+        <div class="contact-grid">
+          <div class="card contact-card">
+            <h3>Send a Message</h3>
+            <form id="contact-form" onsubmit="handleSubmit(event)">
+              <div class="form-group">
+                <input type="text" class="input" placeholder="Your Name" required />
+              </div>
+              <div class="form-group">
+                <input type="email" class="input" placeholder="Your Email" required />
+              </div>
+              <div class="form-group">
+                <textarea class="textarea" placeholder="Your Message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-full">
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          <div class="contact-info">
+            <div class="card contact-info-card">
+              <h3>Contact Information</h3>
+              <a href="/cdn-cgi/l/email-protection#482b203a313b302126203d21082f25292124662b2725" class="contact-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span><span class="__cf_email__" data-cfemail="a6c5ced4dfd5decfc8ced3cfe6c1cbc7cfca88c5c9cb">[email&#160;protected]</span></span>
+              </a>
+            </div>
+
+            <div class="card contact-info-card">
+              <h3>Follow Me</h3>
+              <div class="social-links">
+                <a href="https://instagram.com/chrysantyy" target="_blank" class="social-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </a>
+                
+                <a href="https://www.linkedin.com/in/chrysanty-gwyneth-990026194?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="social-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                
+                <a href="https://www.tiktok.com/@gwyneth.winata" target="_blank" class="social-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© <span id="current-year"></span> Chrysanty Gwyneth Winata Ang. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Smooth scroll to section
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Close mobile menu if open
+        const mobileNav = document.getElementById('mobile-nav');
+        if (mobileNav.classList.contains('active')) {
+          toggleMobileMenu();
+        }
+      }
+    }
+
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+      const mobileNav = document.getElementById('mobile-nav');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      
+      mobileNav.classList.toggle('active');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    }
+
+    // Handle form submission
+    function handleSubmit(event) {
+      event.preventDefault();
+      alert("Thanks for reaching out! This is a demo - in a real app, your message would be sent.");
+      event.target.reset();
+    }
+
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Add scroll event listener for header background
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+      } else {
+        header.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+      }
+    });
+  </script>
+</body>
+</html>
